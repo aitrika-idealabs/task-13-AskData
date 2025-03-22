@@ -90,7 +90,7 @@ if uploaded_file:
 # User Query with Submit Button
 col1, col2 = st.columns([3, 1])
 with col1:
-    query = st.text_input("Ask a question about your data:")
+    query = st.text_input("Click the "Ask" button to inquire about your data")
 with col2:
     # Add some vertical spacing to align with the text input
     st.write("")  
