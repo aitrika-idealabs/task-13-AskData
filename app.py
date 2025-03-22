@@ -59,8 +59,12 @@ if uploaded_file:
         # Show indicator that full data is captured
         st.success(f"✅ Full data extracted ({len(st.session_state['data'])} rows)")
         
-        # Create interactive visualization
-        create_interactive_visualization(df)
+        # Add checkbox to toggle visualization
+        show_viz = st.checkbox("Show Visualization", value=True, key="show_visualization")
+        
+        # Create interactive visualization only if checkbox is checked
+        if show_viz:
+            create_interactive_visualization(df)
         
     elif file_type == "xlsx":
         # Process Excel file
@@ -75,26 +79,28 @@ if uploaded_file:
         # Show indicator that full data is captured
         st.success(f"✅ Full data extracted ({len(st.session_state['data'])} rows)")
         
-        # Create interactive visualization
-        create_interactive_visualization(df)
+        # Add checkbox to toggle visualization
+        show_viz = st.checkbox("Show Visualization", value=True, key="show_visualization")
+        
+        # Create interactive visualization only if checkbox is checked
+        if show_viz:
+            create_interactive_visualization(df)
         
     elif file_type == "pdf":
         # Extract PDF text
         pdf_text = extract_text_from_pdf(uploaded_file)
         st.session_state["context"] = f"PDF Content:\n{pdf_text}"
         
-        # Show a preview to the user
-        st.write("### PDF Content Preview")
-        st.text(pdf_text[:1000] + "..." if len(pdf_text) > 1000 else pdf_text)
+        # Show success message without preview for PDF
+        st.success("✅ PDF content extracted successfully")
 
 # User Query with Submit Button
 col1, col2 = st.columns([3, 1])
 with col1:
-    query = st.text_input('Click the "Ask" button to inquire about your data')
+    query = st.text_input("Ask a question about your data:")
 with col2:
     # Add some vertical spacing to align with the text input
     st.write("")  
-    st.write("")
     submit_button = st.button("Ask", type="primary")
 
 if submit_button and query and st.session_state["context"]:
