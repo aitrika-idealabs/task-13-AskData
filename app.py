@@ -94,6 +94,7 @@ with col1:
 with col2:
     # Add some vertical spacing to align with the text input
     st.write("")  
+    st.write("")
     submit_button = st.button("Ask", type="primary")
 
 if submit_button and query and st.session_state["context"]:
